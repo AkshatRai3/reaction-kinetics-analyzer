@@ -1,2 +1,21 @@
 import type {KineticsResult} from '../types/kinetics';
-export default function MethodExplanation({result}:{result:KineticsResult}){const text=result.method==='integral'?(result.reactionOrder===0?'The integral method compares the linearized zero-order form [A] vs time with the higher-order forms. The zero-order plot is selected because it has the highest R². Its slope is −k, so k is the magnitude of the slope.':result.reactionOrder===1?'The integral method tests reaction-order equations by transforming concentration into a linear form. For a first-order reaction, ln[A] is plotted against time. The highest R² identifies the best linear fit, and the slope is −k.':`The integral method tests reaction-order equations by transforming concentration into a linear form. For a ${['','','second','third','fourth','fifth'][result.reactionOrder]}-order reaction, 1/[A]^${result.reactionOrder-1} is plotted against time. The highest R² identifies the best linear fit, and k is the slope divided by ${result.reactionOrder-1}.`):'The differential method estimates −d[A]/dt numerically from neighboring time–concentration values. It then plots ln(rate) against ln[A]. The slope is the reaction order and the intercept is ln(k), so k is obtained by exponentiating the intercept.';return <section className="rounded-2xl border bg-white p-5 dark:border-slate-800 dark:bg-slate-900"><h2 className="text-xl font-semibold">How was this calculated?</h2><p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{text}</p><p className="mt-3 text-xs text-slate-500">Higher R² indicates a better linear fit, but experimental noise and data quality should also be considered. R² alone does not guarantee the true reaction mechanism.</p></section>}
+
+export default function MethodExplanation({result}:{result:KineticsResult}){
+  const text = result.method === 'integral'
+    ? (result.reactionOrder === 0
+      ? 'The integral method compares the linearized zero-order form [A] vs time with the higher-order forms. The zero-order plot is selected because it has the highest R². Its slope is −k, so k is the magnitude of the slope.'
+      : result.reactionOrder === 1
+        ? 'The integral method tests reaction-order equations by transforming concentration into a linear form. For a first-order reaction, ln[A] is plotted against time. The highest R² identifies the best linear fit, and the slope is −k.'
+        : `The integral method tests reaction-order equations by transforming concentration into a linear form. For a ${['', '', 'second', 'third', 'fourth', 'fifth'][result.reactionOrder]}-order reaction, 1/[A]^${result.reactionOrder - 1} is plotted against time. The highest R² identifies the best linear fit, and k is the slope divided by ${result.reactionOrder - 1}.`)
+    : 'The differential method estimates −d[A]/dt numerically from neighboring time–concentration values. It then plots ln(rate) against ln[A]. The slope is the reaction order and the intercept is ln(k), so k is obtained by exponentiating the intercept.';
+
+  return (
+    <section className="rounded-2xl border bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+      <h2 className="text-xl font-semibold">How was this calculated?</h2>
+      <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{text}</p>
+      <p className="mt-3 text-xs text-slate-500">
+        This value is an apparent reaction order from a single time–concentration trace. A good linear fit does not prove whether the reaction is autocatalytic, reversible, series, or parallel; those mechanisms require more species data and kinetic context.
+      </p>
+    </section>
+  );
+}
