@@ -1,7 +1,6 @@
 export interface DataPoint { time:number; concentration:number }
 export interface RegressionResult { slope:number; intercept:number; rSquared:number; predicted:number[] }
 export type Method = 'integral'|'differential'
-export type ReactorType = 'batch'|'cstr'|'pfr'|'unknown'
 export type IntegralOrder = 0|1|2|3|4|5
 export interface IntegralCandidate extends RegressionResult { order:IntegralOrder; label:string; xLabel:string; yLabel:string; x:number[]; y:number[]; k:number }
 export interface SpeciesTableRow {
@@ -13,7 +12,6 @@ export interface MechanismInputState {
   multipleSpeciesAvailable: boolean;
   speciesNames: string;
   initialConcentrations: string;
-  reactorType: ReactorType;
   temperature: string;
   stoichiometry: string;
   speciesTable: SpeciesTableRow[];

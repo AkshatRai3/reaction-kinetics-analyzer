@@ -220,25 +220,6 @@ export default function DataInput({
           </label>
 
           <label className="text-sm font-medium">
-            Reactor type
-            <select
-              value={mechanismInputs.reactorType}
-              onChange={(e) =>
-                setMechanismInputs({
-                  ...mechanismInputs,
-                  reactorType: e.target.value as MechanismInputState['reactorType'],
-                })
-              }
-              className="mt-1 w-full rounded-lg border bg-white p-2.5 dark:border-slate-700 dark:bg-slate-900"
-            >
-              <option value="batch">Batch</option>
-              <option value="cstr">CSTR</option>
-              <option value="pfr">PFR</option>
-              <option value="unknown">Unknown</option>
-            </select>
-          </label>
-
-          <label className="text-sm font-medium">
             Temperature (K)
             <input
               type="number"
